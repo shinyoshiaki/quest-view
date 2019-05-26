@@ -5,6 +5,8 @@ using WebRTC;
 using WebSocketSharp;
 using WebSocketSharp.Net;
 using Utf8Json;
+using UniRx;
+using System;
 public class Connect : MonoBehaviour
 {
     WebSocket ws;
@@ -13,6 +15,7 @@ public class Connect : MonoBehaviour
 
     void Start()
     {
+        ws = new WebSocket("ws://192.168.0.5:8080/");
         signaling = new Signaling(roomId);
         signaling.OnConnectMethod += OnConnet;
         signaling.OnDataMethod += OnData;
@@ -22,6 +25,11 @@ public class Connect : MonoBehaviour
         {
             OnMessage(e.Data);
         };
+
+        Observable.Timer(TimeSpan.FromSeconds(1)).Subscribe(_ =>
+       {
+           Create();
+       }).AddTo(this);
     }
 
     void OnConnet(string str)
@@ -95,7 +103,6 @@ public class Connect : MonoBehaviour
 
     void OnSdpData(string s)
     {
-
         signaling.SetSdp(s);
     }
     void OnJoin(string e)

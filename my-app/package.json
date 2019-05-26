@@ -11,7 +11,8 @@
     "react": "^16.8.6",
     "react-dom": "^16.8.6",
     "react-scripts": "3.0.1",
-    "typescript": "3.4.5"
+    "typescript": "3.4.5",
+    "ws": "^7.0.0"
   },
   "scripts": {
     "start": "react-scripts start",
@@ -36,6 +37,7 @@
     ]
   },
   "devDependencies": {
+    "@types/ws": "^6.0.1",
     "concurrently": "^4.1.0",
     "electron": "^5.0.2",
     "electron-builder": "^20.41.0",
