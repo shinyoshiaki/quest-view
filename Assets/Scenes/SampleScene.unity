@@ -309,8 +309,9 @@ GameObject:
   m_Component:
   - component: {fileID: 1986787266}
   - component: {fileID: 1986787267}
+  - component: {fileID: 1986787268}
   m_Layer: 0
-  m_Name: GameObject
+  m_Name: Logic
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -340,6 +341,18 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: e58257c2a34069744a9baae0049d2bac, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &1986787268
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1986787265}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 167ec7ed218237f4e887c161e38935d5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
 --- !u!1001 &2029676715
