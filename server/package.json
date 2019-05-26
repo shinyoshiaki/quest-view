@@ -10,7 +10,8 @@
   "scripts": {
     "build": "tsc",
     "test": "jest",
-    "publish": "npm publish --access=public"
+    "publish": "npm publish --access=public",
+    "serve":"npm run build && cd lib && node index.js"
   },
   "devDependencies": {
     "@types/jest": "^23.3.13",
