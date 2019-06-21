@@ -13,20 +13,18 @@ public class Connect : MonoBehaviour
     void Start()
     {
         Observable.Timer(TimeSpan.FromSeconds(2)).Subscribe(_ => Create());
-        Observable.Timer(TimeSpan.FromSeconds(2)).Subscribe(_ => Debug.Log("2秒遅れて実行"));
 
         Debug.Log("start");
-        ws = new WebSocket("ws://127.0.0.1:8080");
+        ws = new WebSocket("ws://192.168.0.5:8080");
+
+        ws.OnMessage += (_, e) => OnMessage(e.Data);
+
         ws.Connect();
+
         signaling = new Signaling(roomId);
         signaling.OnConnectMethod += OnConnet;
         signaling.OnDataMethod += OnData;
         signaling.OnSdpMethod += OnSdp;
-
-        ws.OnMessage += (_, e) =>
-        {
-            OnMessage(e.Data);
-        };
     }
 
     void OnConnet(string str)
@@ -86,6 +84,7 @@ public class Connect : MonoBehaviour
     }
     void OnMessage(string s)
     {
+        Debug.Log("onmessage " + s);
         var data = JsonSerializer.Deserialize<OnMessageS>(s);
         switch (data.type)
         {
