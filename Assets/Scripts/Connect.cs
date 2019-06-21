@@ -1,9 +1,6 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+﻿using UnityEngine;
 using WebRTC;
 using WebSocketSharp;
-using WebSocketSharp.Net;
 using Utf8Json;
 using UniRx;
 using System;
@@ -15,7 +12,12 @@ public class Connect : MonoBehaviour
 
     void Start()
     {
-        ws = new WebSocket("ws://192.168.0.5:8080/");
+        Observable.Timer(TimeSpan.FromSeconds(2)).Subscribe(_ => Create());
+        Observable.Timer(TimeSpan.FromSeconds(2)).Subscribe(_ => Debug.Log("2秒遅れて実行"));
+
+        Debug.Log("start");
+        ws = new WebSocket("ws://127.0.0.1:8080");
+        ws.Connect();
         signaling = new Signaling(roomId);
         signaling.OnConnectMethod += OnConnet;
         signaling.OnDataMethod += OnData;
@@ -25,11 +27,6 @@ public class Connect : MonoBehaviour
         {
             OnMessage(e.Data);
         };
-
-        Observable.Timer(TimeSpan.FromSeconds(1)).Subscribe(_ =>
-       {
-           Create();
-       }).AddTo(this);
     }
 
     void OnConnet(string str)

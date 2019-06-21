@@ -10,8 +10,9 @@
   "scripts": {
     "build": "tsc",
     "test": "jest",
+    "start": "ts-node --project ./tsconfig.json ./index.ts",
     "publish": "npm publish --access=public",
-    "serve":"npm run build && cd lib && node index.js"
+    "serve": "npm run build && cd lib && node index.js"
   },
   "devDependencies": {
     "@types/jest": "^23.3.13",
@@ -19,6 +20,7 @@
     "@types/ws": "^6.0.1",
     "jest": "^23.6.0",
     "ts-jest": "^23.10.5",
+    "ts-node": "^8.3.0",
     "tslib": "^1.9.3",
     "typescript": "^3.4.4"
   },
