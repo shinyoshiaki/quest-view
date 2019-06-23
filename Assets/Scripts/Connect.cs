@@ -73,6 +73,8 @@ public class Connect : MonoBehaviour
         var json = JsonSerializer.ToJsonString(data);
         ws.Send(json);
 
+        // test
+        signaling.peer.CreateOffer();
     }
 
     public void Join()
