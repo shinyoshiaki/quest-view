@@ -188,8 +188,11 @@ export default class WebRTC {
 
     const err = await this.rtc
       .setRemoteDescription(new RTCSessionDescription(offer))
-      .catch(() => "err");
-    if (err) return;
+      .catch(e => ({ e }));
+    if (err) {
+      console.warn(err);
+      return;
+    }
 
     const answer = await this.rtc.createAnswer().catch(console.warn);
     if (!answer) return;
@@ -208,6 +211,7 @@ export default class WebRTC {
   async setSdp(sdp: any) {
     switch (sdp.type) {
       case "offer":
+        console.log("makeanswer");
         this.makeAnswer(sdp);
         break;
       case "answer":

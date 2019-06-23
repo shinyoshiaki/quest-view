@@ -1,5 +1,6 @@
 ﻿using SimplePeerConnectionM;
 using System.Collections.Generic;
+using UnityEngine;
 using Utf8Json;
 
 namespace WebRTC
@@ -30,7 +31,6 @@ namespace WebRTC
         void InitPeer()
         {
             List<string> servers = new List<string>();
-            servers.Add("stun: stun.skyway.io:3478");
             servers.Add("stun: stun.l.google.com:19302");
             peer = new PeerConnectionM(servers, "", "");
             peer.OnLocalSdpReadytoSend += OnLocalSdpReadytoSend;
@@ -43,18 +43,28 @@ namespace WebRTC
         class SendSdpJson
         {
             public string type;
-            public string sdp;
+            public Sdp sdp;
             public string roomId;
         }
 
         void OnLocalSdpReadytoSend(int id, string type, string sdp)
         {
-            var data = new SendSdpJson();
-            data.type = "sdp";
-            data.roomId = roomId;
-            data.sdp = type + "%" + sdp;
+            Debug.Log("OnLocalSdpReadytoSend ");
+            var data = new SendSdpJson
+            {
+                type = "sdp",
+                sdp = new Sdp { type = type, sdp = sdp },
+                roomId = roomId
+            };
             var json = JsonSerializer.ToJsonString(data);
+            Debug.Log("OnLocalSdpReadytoSend " + json);
             OnSdpMethod(json);
+        }
+
+        class Sdp
+        {
+            public string type;
+            public string sdp;
         }
 
         class SendIce
@@ -66,13 +76,15 @@ namespace WebRTC
 
         void OnIceCandidate(int id, string candidate, int sdpMlineIndex, string sdpMid)
         {
+            Debug.Log("OnIceCandidate ");
             var data = new SendIce
             {
                 type = "sdp",
-                sdp = "ice%" + candidate + "%" + sdpMlineIndex + "%" + sdpMid,
+                sdp = candidate,
                 roomId = roomId
             };
-            var json = JsonSerializer.ToJsonString(data);
+            var json = JsonUtility.ToJson(data);
+            Debug.Log("OnIceCandidate " + json);
             OnSdpMethod(json);
         }
 
@@ -87,7 +99,7 @@ namespace WebRTC
             var data = new RoomJson();
             data.type = "connect";
             data.roomId = roomId;
-            var json = JsonSerializer.ToJsonString(data);
+            var json = JsonUtility.ToJson(data);
             OnConnectMethod(json);
         }
 
@@ -96,26 +108,22 @@ namespace WebRTC
             OnDataMethod(s);
         }
 
-        class SetSdpJson
-        {
-            public string sdp;
-        }
 
-        public void SetSdp(object raw)
+        public void SetSdp(string s)
         {
-            var data = JsonSerializer.Deserialize<SetSdpJson>(raw.ToString());
-            var arr = data.sdp.Split('%');
+            Debug.Log("setsdp " + s);
+            var arr = s.Split('%');
+
             switch (arr[0])
             {
                 case "offer":
+                    Debug.Log("offer sdp " + arr[0] +
+                    " " + arr[1]);
                     peer.SetRemoteDescription(arr[0], arr[1]);
                     peer.CreateAnswer();
                     break;
                 case "answer":
                     peer.SetRemoteDescription(arr[0], arr[1]);
-                    break;
-                case "ice":
-                    peer.AddIceCandidate(arr[1], int.Parse(arr[2]), arr[3]);
                     break;
             }
         }

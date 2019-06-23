@@ -8,9 +8,7 @@ const Display: FC<Props> = ({ onStream }) => {
 
   useEffect(() => {
     (async () => {
-      console.log("display");
       const stream = await getScreen();
-      console.log(stream);
       ref.current.srcObject = stream;
       onStream(stream);
     })();
