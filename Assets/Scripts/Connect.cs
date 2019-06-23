@@ -12,6 +12,14 @@ public class Connect : MonoBehaviour
 
     void Start()
     {
+
+#if UNITY_ANDROID
+        AndroidJavaClass playerClass = new AndroidJavaClass("com.unity3d.player.UnityPlayer");
+        AndroidJavaObject activity = playerClass.GetStatic<AndroidJavaObject>("currentActivity");
+        AndroidJavaClass utilityClass = new AndroidJavaClass("org.webrtc.UnityUtility");
+        utilityClass.CallStatic("InitializePeerConncectionFactory", new object[1] { activity });
+#endif
+
         Observable.Timer(TimeSpan.FromSeconds(2)).Subscribe(_ => Create());
 
         Debug.Log("start");

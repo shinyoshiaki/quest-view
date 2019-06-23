@@ -40,7 +40,7 @@ namespace SimplePeerConnectionM
     public class PeerConnectionM
     {
         //private const string dllPath = "webrtc_unity_plugin";
-        private const string dllPath = "libjingle_peerconnection_so";
+        private const string dllPath = "jingle_peerconnection_so";
 
         //[DllImport(dllPath, CallingConvention = CallingConvention.Cdecl)]
         //private static extern int InitializePeerConnection(string[] turnUrls, int noOfUrls, string username, string credential, bool isReceiver);
