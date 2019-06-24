@@ -263,9 +263,7 @@ export default class WebRTC {
               nodeId: this.nodeId
             });
           }
-        } catch (error) {
-          console.warn(error);
-        }
+        } catch (error) {}
       };
 
       channel.onerror = err => console.warn(err);

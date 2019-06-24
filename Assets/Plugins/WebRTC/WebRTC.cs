@@ -43,8 +43,7 @@ namespace WebRTC
         class SendSdpJson
         {
             public string type;
-            public Sdp sdp;
-            public string roomId;
+            public Sdp payload;
         }
 
         void OnLocalSdpReadytoSend(int id, string type, string sdp)
@@ -53,8 +52,7 @@ namespace WebRTC
             var data = new SendSdpJson
             {
                 type = "sdp",
-                sdp = new Sdp { type = type, sdp = sdp },
-                roomId = roomId
+                payload = new Sdp { type = type, sdp = sdp },
             };
             var json = JsonSerializer.ToJsonString(data);
             Debug.Log("OnLocalSdpReadytoSend " + json);
@@ -70,8 +68,8 @@ namespace WebRTC
         class SendIce
         {
             public string type;
-            public string sdp;
-            public string roomId;
+            public string payload;
+
         }
 
         void OnIceCandidate(int id, string candidate, int sdpMlineIndex, string sdpMid)
@@ -80,8 +78,7 @@ namespace WebRTC
             var data = new SendIce
             {
                 type = "sdp",
-                sdp = candidate,
-                roomId = roomId
+                payload = candidate,
             };
             var json = JsonUtility.ToJson(data);
             Debug.Log("OnIceCandidate " + json);
@@ -117,13 +114,9 @@ namespace WebRTC
             switch (arr[0])
             {
                 case "offer":
-                    Debug.Log("offer sdp " + arr[0] +
-                    " " + arr[1]);
+                    Debug.Log("offer sdp " + arr[0] + " " + arr[1]);
                     peer.SetRemoteDescription(arr[0], arr[1]);
                     peer.CreateAnswer();
-                    break;
-                case "answer":
-                    peer.SetRemoteDescription(arr[0], arr[1]);
                     break;
             }
         }

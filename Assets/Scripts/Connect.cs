@@ -38,8 +38,7 @@ public class Connect : MonoBehaviour
     void OnConnet(string str)
     {
         Debug.Log("connect");
-        ws.Send(str);
-        signaling.peer.SendDataViaDataChannel("test");
+        signaling.peer.SendDataViaDataChannel("test from unity");
     }
 
     public void Send(string str)
@@ -58,18 +57,18 @@ public class Connect : MonoBehaviour
         ws.Send(s);
     }
 
-    class RoomJson
+    class Action
     {
         public string type;
-        public string roomId;
+        public string payload;
     }
 
     public void Join()
     {
         Debug.Log("join");
-        var data = new RoomJson();
+        var data = new Action();
         data.type = "join";
-        data.roomId = roomId;
+        data.payload = "join";
         var json = JsonUtility.ToJson(data);
         ws.Send(json);
     }
@@ -78,6 +77,7 @@ public class Connect : MonoBehaviour
     class OnMessageS
     {
         public string type;
+        public string payload;
     }
     void OnMessage(string s)
     {
@@ -86,24 +86,10 @@ public class Connect : MonoBehaviour
         Debug.Log(data.type);
         switch (data.type)
         {
-            case "sdp":
-                OnSdpData(s);
+            case "offer":
+                signaling.SetSdp(data.payload);
                 break;
         }
-    }
-
-    class OnSdpDataS
-    {
-        public string type;
-        public string sdp;
-    }
-
-    void OnSdpData(string s)
-    {
-        Debug.Log("onsdp");
-        var data = JsonUtility.FromJson<OnSdpDataS>(s);
-        Debug.Log("data " + data.sdp);
-        signaling.SetSdp(data.sdp);
     }
 
 }
