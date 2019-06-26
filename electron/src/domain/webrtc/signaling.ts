@@ -1,9 +1,9 @@
 import WebRTC from "../../lib/webrtc";
 import { observer, action } from "../../server/signaling";
 
-export function create(roomId: string, trickle: boolean) {
+export function create(roomId: string, stream?: MediaStream) {
   return new Promise<WebRTC>(async resolve => {
-    const rtc = new WebRTC({ trickle: false });
+    const rtc = new WebRTC({ trickle: false, stream });
 
     observer.subscribe(action => {
       console.log(action);

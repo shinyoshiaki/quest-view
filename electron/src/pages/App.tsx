@@ -13,11 +13,8 @@ const Cast: FC = () => {
   const [room] = useState("test2");
 
   const onStream = async (stream: MediaStream) => {
-    const peer = await create(room, false);
-    console.log({ stream });
-    peer.addTrack(stream.getVideoTracks()[0], stream);
-    if (stream.getAudioTracks()[0])
-      peer.addTrack(stream.getAudioTracks()[0], stream);
+    const peer = await create(room, stream);
+
     peer.onData.subscribe((msg: any) => {
       console.log(msg);
       const data = JSON.parse(msg.data);
