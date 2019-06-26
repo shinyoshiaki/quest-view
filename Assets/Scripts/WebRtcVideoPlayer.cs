@@ -1,6 +1,4 @@
 ﻿using System;
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 public class WebRtcVideoPlayer : MonoBehaviour
@@ -9,6 +7,8 @@ public class WebRtcVideoPlayer : MonoBehaviour
     private Texture2D tex;
     FrameQueue frameQueue = new FrameQueue(5);
     float lastUpdateTime;
+
+    public Connect connect;
 
     [SerializeField]
     private bool _playing;
@@ -29,6 +29,7 @@ public class WebRtcVideoPlayer : MonoBehaviour
         tex.SetPixel(1, 1, Color.blue);
         tex.Apply();
         GetComponent<Renderer>().material.mainTexture = tex;
+        connect.OnRemoteVideo += OnI420RemoteFrameReady;
     }
 
     // Update is called once per frame

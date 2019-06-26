@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 using Utf8Json;
+using System;
 
 namespace WebRTC
 {
@@ -12,7 +13,16 @@ namespace WebRTC
         public OnData OnDataMethod;
 
         public delegate void OnSdp(string json);
+
+
         public OnSdp OnSdpMethod;
+
+        public delegate void IOnRemoteVideo(int id,
+      IntPtr dataY, IntPtr dataU, IntPtr dataV, IntPtr dataA,
+      int strideY, int strideU, int strideV, int strideA,
+      uint width, uint height);
+
+        public IOnRemoteVideo OnRemoteVideo;
 
         public delegate void OnConnect(string json);
         public OnConnect OnConnectMethod;
@@ -38,12 +48,21 @@ namespace WebRTC
             peer.AddDataChannel();
             peer.OnLocalDataChannelReady += Connected;
             peer.OnDataFromDataChannelReady += Received;
+            peer.OnRemoteVideoFrameReady += OnI420RemoteFrameReady;
         }
 
         class SendSdpJson
         {
             public string type;
             public Sdp payload;
+        }
+
+        void OnI420RemoteFrameReady(int id,
+        IntPtr dataY, IntPtr dataU, IntPtr dataV, IntPtr dataA,
+        int strideY, int strideU, int strideV, int strideA,
+        uint width, uint height)
+        {
+            OnRemoteVideo(id, dataY, dataU, dataV, dataA, strideY, strideU, strideV, strideA, width, height);
         }
 
         void OnLocalSdpReadytoSend(int id, string type, string sdp)

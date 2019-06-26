@@ -3,12 +3,19 @@ using WebRTC;
 using WebSocketSharp;
 using UniRx;
 using System;
-using Utf8Json;
+
 public class Connect : MonoBehaviour
 {
     WebSocket ws;
     Signaling signaling;
     public string roomId = "test2";
+
+    public delegate void IOnRemoteVideo(int id,
+      IntPtr dataY, IntPtr dataU, IntPtr dataV, IntPtr dataA,
+      int strideY, int strideU, int strideV, int strideA,
+      uint width, uint height);
+
+    public IOnRemoteVideo OnRemoteVideo;
 
     void Start()
     {
@@ -33,6 +40,7 @@ public class Connect : MonoBehaviour
         signaling.OnConnectMethod += OnConnet;
         signaling.OnDataMethod += OnData;
         signaling.OnSdpMethod += OnSdp;
+        signaling.OnRemoteVideo += OnI420RemoteFrameReady;
     }
 
     void OnConnet(string str)
@@ -90,6 +98,14 @@ public class Connect : MonoBehaviour
                 signaling.SetSdp(data.payload);
                 break;
         }
+    }
+
+    void OnI420RemoteFrameReady(int id,
+       IntPtr dataY, IntPtr dataU, IntPtr dataV, IntPtr dataA,
+       int strideY, int strideU, int strideV, int strideA,
+       uint width, uint height)
+    {
+        OnRemoteVideo(id, dataY, dataU, dataV, dataA, strideY, strideU, strideV, strideA, width, height);
     }
 
 }
