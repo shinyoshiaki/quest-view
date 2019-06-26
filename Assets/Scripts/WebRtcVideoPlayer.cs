@@ -32,36 +32,27 @@ public class WebRtcVideoPlayer : MonoBehaviour
         connect.OnRemoteVideo += OnI420RemoteFrameReady;
     }
 
+    FramePacket framePacket;
+
     // Update is called once per frame
     void Update()
     {
-        if (Time.fixedTime - lastUpdateTime > 1.0 / 31.0)
-        {
-            lastUpdateTime = Time.fixedTime;
-            TryProcessFrame();
-        }
-
-        if (frameQueue != null)
-        {
-            _fpsLoad = frameQueue.Stats.fpsLoad();
-            _fpsShow = frameQueue.Stats.fpsShow();
-            _fpsSkip = frameQueue.Stats.fpsSkip();
-        }
+        ProcessFrameBuffer(framePacket);
     }
 
-    private void TryProcessFrame()
-    {
-        if (frameQueue != null)
-        {
-            FramePacket packet = frameQueue.Pop();
-            //Debug.Log((packet == null ? "no frame to consume." : "frame consumed.") + "framesCount : " + frameQueue.Count);
-            if (packet != null)
-            {
-                ProcessFrameBuffer(packet);
-                frameQueue.Pool(packet);
-            }
-        }
-    }
+    // private void TryProcessFrame()
+    // {
+    //     if (frameQueue != null)
+    //     {
+    //         FramePacket packet = frameQueue.Pop();
+    //         //Debug.Log((packet == null ? "no frame to consume." : "frame consumed.") + "framesCount : " + frameQueue.Count);
+    //         if (packet != null)
+    //         {
+    //             ProcessFrameBuffer(packet);
+    //             frameQueue.Pool(packet);
+    //         }
+    //     }
+    // }
 
     private void ProcessFrameBuffer(FramePacket packet)
     {
@@ -97,7 +88,8 @@ public class WebRtcVideoPlayer : MonoBehaviour
         CopyYuvToBuffer(dataY, dataU, dataV, strideY, strideU, strideV, width, height, packet.Buffer);
         packet.width = (int)width;
         packet.height = (int)height;
-        frameQueue.Push(packet);
+        // frameQueue.Push(packet);
+        framePacket = packet;
     }
 
     void CopyYuvToBuffer(IntPtr dataY, IntPtr dataU, IntPtr dataV,

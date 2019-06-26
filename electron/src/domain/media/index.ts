@@ -22,7 +22,8 @@ export function getScreen() {
           mandatory: {
             chromeMediaSource: "desktop",
             chromeMediaSourceId: "screen:0:0"
-          }
+          },
+          optional: [{ maxFrameRate: 25 }]
         }
       })
       .then((stream: any) => {
