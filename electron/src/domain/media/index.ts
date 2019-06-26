@@ -1,5 +1,15 @@
+const load = (window as any).require;
+const desktopCapturer = load("electron").desktopCapturer;
+
 export function getScreen() {
   return new Promise<MediaStream>(resolve => {
+    desktopCapturer.getSources(
+      { types: ["screen", "window"] },
+      (_: any, sources: any) => {
+        console.log(sources);
+      }
+    );
+
     const nav = navigator.mediaDevices as any;
     nav
       .getUserMedia({
@@ -10,7 +20,8 @@ export function getScreen() {
         },
         video: {
           mandatory: {
-            chromeMediaSource: "desktop"
+            chromeMediaSource: "desktop",
+            chromeMediaSourceId: "screen:0:0"
           }
         }
       })

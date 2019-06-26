@@ -5,7 +5,7 @@ public class WebRtcVideoPlayer : MonoBehaviour
 {
 
     private Texture2D tex;
-    FrameQueue frameQueue = new FrameQueue(5);
+    FrameQueue frameQueue = new FrameQueue(2);
     float lastUpdateTime;
 
     public Connect connect;

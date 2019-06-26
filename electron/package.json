@@ -12,6 +12,7 @@
     "@types/node": "12.0.3",
     "@types/react": "16.8.19",
     "@types/react-dom": "16.8.4",
+    "internal-ip": "^4.3.0",
     "react": "^16.8.6",
     "react-dom": "^16.8.6",
     "react-scripts": "3.0.1",
@@ -48,6 +49,7 @@
     ]
   },
   "devDependencies": {
+    "@types/internal-ip": "^4.1.0",
     "@types/uuid": "^3.4.4",
     "@types/ws": "^6.0.1",
     "cross-env": "^5.2.0",

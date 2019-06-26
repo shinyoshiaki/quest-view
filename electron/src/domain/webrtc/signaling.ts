@@ -29,7 +29,7 @@ export function create(roomId: string, stream?: MediaStream) {
     rtc.onConnect.once(() => {
       console.log("connect");
       resolve(rtc);
-      setInterval(() => rtc.send("from electron"), 2000);
+      setTimeout(() => rtc.send("from electron"), 2000);
     });
 
     rtc.onData.once(e => console.log("connected", e.data));
