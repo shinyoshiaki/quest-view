@@ -1,25 +1,44 @@
 import React, { FC, useEffect, useRef } from "react";
-import { getScreen } from "../../domain/media";
+import styled from "styled-components";
+import { Card } from "@material-ui/core";
 
-type Props = { onStream: (stream: MediaStream) => void };
+type Props = { strem: MediaStream };
 
-const Display: FC<Props> = ({ onStream }) => {
+const Display: FC<Props> = ({ strem }) => {
   const ref = useRef<any>();
 
   useEffect(() => {
-    (async () => {
-      const stream = await getScreen();
-      ref.current.srcObject = stream;
-      onStream(stream);
-    })();
-  }, []);
+    const video = ref.current;
+    if (video) {
+      video.srcObject = strem;
+    }
+  }, [ref]);
 
   return (
-    <div>
-      <p>display</p>
-      <video ref={ref} autoPlay={true} muted={true} />
-    </div>
+    <Card>
+      <Text>display</Text>
+      <div
+        style={{
+          display: "flex",
+          justifyContent: "center",
+          alignItems: "center"
+        }}
+      >
+        <video
+          ref={ref}
+          autoPlay={true}
+          muted={true}
+          style={{ width: "70%", padding: 30 }}
+        />
+      </div>
+    </Card>
   );
 };
 
 export default Display;
+
+const Text = styled.p`
+  width: 100%;
+  font-size: 20px;
+  text-align: center;
+`;

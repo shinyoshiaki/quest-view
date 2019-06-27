@@ -1,23 +1,24 @@
 import React, { FC, useState, useEffect } from "react";
-import getPrivateIP from "../../domain/ip";
+import ipv4 from "../../server/ip";
+import styled from "styled-components";
 
 const ShowIP: FC = () => {
-  const [ip, setip] = useState("");
+  const [ip, setIp] = useState("");
 
   useEffect(() => {
-    init();
+    (async () => {
+      const res = await ipv4();
+      setIp(res);
+    })();
   }, []);
 
-  const init = async () => {
-    const res = await getPrivateIP();
-    setip(res);
-  };
-
-  return (
-    <div>
-      <p>{ip}</p>
-    </div>
-  );
+  return <Text>{ip}</Text>;
 };
 
 export default ShowIP;
+
+const Text = styled.p`
+  width: 100%;
+  font-size: 30px;
+  text-align: center;
+`;
