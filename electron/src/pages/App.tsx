@@ -19,27 +19,25 @@ const Cast: FC = () => {
   };
 
   return (
-    <div style={{}}>
-      <div>
-        {!screenStream && (
+    <div>
+      {!screenStream && (
+        <div>
+          <p>シェアする画面を選択してください</p>
+          <ScreenList onClick={onSelectScreen} />
+        </div>
+      )}
+      {screenStream && <Reload>{"再選択"}</Reload>}
+      {screenStream && (
+        <Base in={true} timeout={1000}>
           <div>
-            <p>シェアするスクリーンを選択してください</p>
-            <ScreenList onClick={onSelectScreen} />
-          </div>
-        )}
-        {screenStream && <Reload>{"再選択"}</Reload>}
-        {screenStream && (
-          <Base in={true} timeout={1000}>
-            <div>
-              <div style={{ width: "70vw" }}>
-                <p>ipアドレスを入力してください</p>
-                <ShowIP />
-                <Display strem={screenStream} />
-              </div>
+            <div style={{ width: "70vw" }}>
+              <p>ipアドレスを入力してください</p>
+              <ShowIP />
+              <Display strem={screenStream} />
             </div>
-          </Base>
-        )}
-      </div>
+          </div>
+        </Base>
+      )}
     </div>
   );
 };
