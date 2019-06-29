@@ -8,7 +8,6 @@ public class Connect : MonoBehaviour
 {
     WebSocket ws;
     Signaling signaling;
-    public string roomId = "test2";
 
     public delegate void IOnRemoteVideo(int id,
       IntPtr dataY, IntPtr dataU, IntPtr dataV, IntPtr dataA,
@@ -17,7 +16,7 @@ public class Connect : MonoBehaviour
 
     public IOnRemoteVideo OnRemoteVideo;
 
-    void Start()
+    public void StartConnect(string ipAddress)
     {
 
 #if UNITY_ANDROID
@@ -30,13 +29,13 @@ public class Connect : MonoBehaviour
         Observable.Timer(TimeSpan.FromSeconds(2)).Subscribe(_ => Join());
 
         Debug.Log("start");
-        ws = new WebSocket("ws://192.168.0.5:8080");
+        ws = new WebSocket("ws://" + ipAddress + ":8080");
 
         ws.OnMessage += (_, e) => OnMessage(e.Data);
 
         ws.Connect();
 
-        signaling = new Signaling(roomId);
+        signaling = new Signaling(ipAddress);
         signaling.OnConnectMethod += OnConnet;
         signaling.OnDataMethod += OnData;
         signaling.OnSdpMethod += OnSdp;
