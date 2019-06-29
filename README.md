@@ -27,9 +27,9 @@ electron.exeを実行
  streamer.zip : 配信用ソフト  
  
  # 利用アセット
- websocket-sharp:https://github.com/sta/websocket-sharp  
- UniRx:https://github.com/neuecc/UniRx  
- Utf8Json:https://github.com/neuecc/Utf8Json  
+ websocket-sharp : https://github.com/sta/websocket-sharp  
+ UniRx : https://github.com/neuecc/UniRx  
+ Utf8Json : https://github.com/neuecc/Utf8Json  
 
 # The MIT License (MIT)  
 
