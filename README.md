@@ -18,7 +18,7 @@ Scenes/example 以下に利用例
 
 electron.exeを実行  
 画面の流れに従う  
-表示されたipアドレスをScripts/Connect.csのStartConnect(string ipAddress)に何らかの方法で渡す。   
+表示されたipアドレスを Scripts/Connect.cs の StartConnect(string ipAddress) に何らかの方法で渡す。   
 (https://github.com/shinyoshiaki/quest-rdp にバーチャルキーボードを使ってIPアドレスを入力する例を用意しています)   
 
  # 配布ページ 
