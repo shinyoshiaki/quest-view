@@ -511,6 +511,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1986787266}
   - component: {fileID: 1986787268}
+  - component: {fileID: 1986787267}
   m_Layer: 0
   m_Name: Logic
   m_TagString: Untagged
@@ -532,6 +533,20 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1986787267
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1986787265}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9ccee2f40f961834083047e35ad8e812, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  ipAddress: 192.168.0.5
+  connect: {fileID: 1986787268}
 --- !u!114 &1986787268
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -544,7 +559,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 167ec7ed218237f4e887c161e38935d5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  roomId: test2
 --- !u!1001 &2029676715
 PrefabInstance:
   m_ObjectHideFlags: 0
