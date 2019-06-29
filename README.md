@@ -1,11 +1,6 @@
-# oculus-quest-webrtc
-oculus quest with webrtc_unity_plugin
+# quest-view
+Oculus QuestにPCのデスクトップ画面を持ち込むアセットです。  
+遅延は0.3秒程度です。音声も出力されます。  
+webrtc_unity_pluginを使って実装しています。(参考文献：https://github.com/mhama/WebRtcUnityPluginSample)  
 
-参考文献：https://github.com/mhama/WebRtcUnityPluginSample
-
-# 対応表
-| OS | スクリーンシェア | 音声共有 | 遠隔操作 |
-----|----|----|----
-| Windows | ○ | ○ | ○ |
-| Mac | ○ | ☓ | ○ |
-| Linux | ○ | ☓ | ○ |
+PC上で配信用のソフトウェアを実行する必要があります。
