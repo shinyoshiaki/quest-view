@@ -25,3 +25,7 @@ electron.exeを実行
  https://github.com/shinyoshiaki/quest-view/releases  
  quest-view.unitypackage : アセット　  
  streamer.zip : 配信用ソフト  
+
+# The MIT License (MIT)  
+
+Copyright (c) 2019 ShinYoshiaki
