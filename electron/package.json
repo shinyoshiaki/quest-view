@@ -22,7 +22,7 @@
     "styled-components": "^4.3.2",
     "typescript": "3.5.1",
     "uuid": "^3.3.2",
-    "ws": "^7.0.0"
+    "ws": "^7.0.1"
   },
   "scripts": {
     "start": "cross-env PORT=4000 BROWSER=none react-app-rewired start",
