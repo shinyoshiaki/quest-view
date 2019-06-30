@@ -5,11 +5,6 @@ const WS: typeof WS_ = load("ws");
 
 type Action = { type: string; payload: string };
 
-export const Offer = (offer: any): Action => {
-  const { type, sdp } = offer;
-  return { type: "offer" as const, payload: type + "%" + sdp };
-};
-
 const action = new Event<Action>();
 const observer = new Event<Action>();
 

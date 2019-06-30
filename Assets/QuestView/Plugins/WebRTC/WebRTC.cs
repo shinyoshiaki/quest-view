@@ -84,22 +84,44 @@ namespace WebRTC
             public string sdp;
         }
 
+        class Ice
+        {
+            public string type;
+            public Candidate ice;
+
+        }
+
+        class Candidate
+        {
+            public string candidate;
+            public string sdpMLineIndex;
+            public string sdpMid;
+        }
+
         class SendIce
         {
             public string type;
-            public string payload;
+            public Ice payload;
 
         }
 
         void OnIceCandidate(int id, string candidate, int sdpMlineIndex, string sdpMid)
         {
-            Debug.Log("OnIceCandidate ");
             var data = new SendIce
             {
                 type = "sdp",
-                payload = candidate,
+                payload = new Ice
+                {
+                    type = "candidate",
+                    ice = new Candidate
+                    {
+                        candidate = candidate,
+                        sdpMLineIndex = sdpMlineIndex.ToString(),
+                        sdpMid = sdpMid,
+                    }
+                }
             };
-            var json = JsonUtility.ToJson(data);
+            var json = JsonSerializer.ToJsonString(data);
             Debug.Log("OnIceCandidate " + json);
             OnSdpMethod(json);
         }
@@ -133,11 +155,20 @@ namespace WebRTC
             switch (arr[0])
             {
                 case "offer":
-                    Debug.Log("offer sdp " + arr[0] + " " + arr[1]);
                     peer.SetRemoteDescription(arr[0], arr[1]);
                     peer.CreateAnswer();
                     break;
+                case "answer":
+                    peer.SetRemoteDescription(arr[0], arr[1]);
+                    break;
+                case "ice":
+                    peer.AddIceCandidate(arr[1], int.Parse(arr[2]), arr[3]);
+                    break;
             }
+        }
+        public void Close()
+        {
+            peer.ClosePeerConnection();
         }
     }
 }

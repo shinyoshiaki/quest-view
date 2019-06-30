@@ -92,11 +92,9 @@ public class Connect : MonoBehaviour
         Debug.Log("onmessage " + s);
         var data = JsonUtility.FromJson<OnMessageS>(s);
         Debug.Log(data.type);
-        switch (data.type)
+        if (data.type == "offer" || data.type == "answer" || data.type == "ice")
         {
-            case "offer":
-                signaling.SetSdp(data.payload);
-                break;
+            signaling.SetSdp(data.payload);
         }
     }
 
@@ -108,4 +106,10 @@ public class Connect : MonoBehaviour
         OnRemoteVideo(id, dataY, dataU, dataV, dataA, strideY, strideU, strideV, strideA, width, height);
     }
 
+
+    void OnDestroy()
+    {
+        Debug.Log("OnDestroy1");
+        signaling.Close();
+    }
 }

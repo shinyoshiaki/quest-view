@@ -3,7 +3,7 @@ import { observer, action } from "../../server/signaling";
 
 export function create(roomId: string, stream?: MediaStream) {
   return new Promise<WebRTC>(async resolve => {
-    const rtc = new WebRTC({ trickle: false, stream });
+    const rtc = new WebRTC({ trickle: true, stream });
 
     observer.subscribe(action => {
       console.log(action);
@@ -20,10 +20,17 @@ export function create(roomId: string, stream?: MediaStream) {
 
     rtc.onSignal.subscribe((session: any) => {
       console.log({ session });
-      const { type, sdp } = session;
-      const data = type + "%" + sdp;
-      console.log("signal", { sdp: data, roomId });
-      action.execute({ type: "offer", payload: data });
+      const { type, sdp, ice } = session;
+
+      if (sdp) {
+        const data = type + "%" + sdp;
+        action.execute({ type: "offer", payload: data });
+      } else if (ice) {
+        const { candidate, sdpMLineIndex, sdpMid } = ice;
+        const data =
+          type + "%" + candidate + "%" + sdpMLineIndex + "%" + sdpMid;
+        action.execute({ type: "ice", payload: data });
+      }
     });
 
     rtc.onConnect.once(() => {
