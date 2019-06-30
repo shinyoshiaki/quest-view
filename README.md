@@ -1,5 +1,6 @@
 # quest-view
-Oculus QuestにPCのデスクトップ画面を持ち込むUnityアセットです。  
+Unityプロジェクト内にPCのデスクトップ画面を持ち込むアセットです。  
+AndroidとWindowsに対応しており、OculusQuestとOculusRiftでの動作を確認しています。  
 遅延は0.3秒程度です。音声も出力されます。  
 webrtc_unity_pluginを使って実装しています。(参考文献：https://github.com/mhama/WebRtcUnityPluginSample)  
 
