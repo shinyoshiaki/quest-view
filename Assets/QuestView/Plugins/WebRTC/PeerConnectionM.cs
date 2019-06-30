@@ -39,9 +39,13 @@ namespace SimplePeerConnectionM
     // A managed wrapper up class for the native c style peer connection APIs.
     public class PeerConnectionM
     {
-        //private const string dllPath = "webrtc_unity_plugin";
+#if UNITY_EDITOR
+        private const string dllPath = "webrtc_unity_plugin";
+#elif UNITY_STANDALONE_WIN
+   private const string dllPath = "webrtc_unity_plugin";
+#elif UNITY_ANDROID
         private const string dllPath = "jingle_peerconnection_so";
-
+#endif
         //[DllImport(dllPath, CallingConvention = CallingConvention.Cdecl)]
         //private static extern int InitializePeerConnection(string[] turnUrls, int noOfUrls, string username, string credential, bool isReceiver);
 

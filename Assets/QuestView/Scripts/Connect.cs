@@ -19,7 +19,8 @@ public class Connect : MonoBehaviour
     public void StartConnect(string ipAddress)
     {
 
-#if UNITY_ANDROID
+#if UNITY_EDITOR
+#elif UNITY_ANDROID
         AndroidJavaClass playerClass = new AndroidJavaClass("com.unity3d.player.UnityPlayer");
         AndroidJavaObject activity = playerClass.GetStatic<AndroidJavaObject>("currentActivity");
         AndroidJavaClass utilityClass = new AndroidJavaClass("org.webrtc.UnityUtility");
