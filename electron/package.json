@@ -32,7 +32,7 @@
     "type": "tsc --noEmit",
     "startapp": "cross-env NODE_ENV=development electron .",
     "dev": "npm-run-all --parallel start startapp",
-    "packager": "npm run build && electron-builder",
+    "deploy": "npm run build && electron-builder",
     "robot": "npm rebuild --runtime=electron --target=4.0.3 --disturl=https://atom.io/download/atom-shell --abi=64"
   },
   "eslintConfig": {
