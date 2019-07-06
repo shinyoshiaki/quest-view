@@ -39,6 +39,10 @@ const Cast: FC = () => {
           break;
       }
     });
+
+    peer.onDisconnect.once(() => {
+      window.location.reload();
+    });
   };
 
   return (
