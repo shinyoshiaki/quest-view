@@ -20,7 +20,6 @@ export default function remote() {
   });
 
   clickMouse.subscribe(() => {
-    console.log("left");
     robot.mouseClick("left");
   });
 
