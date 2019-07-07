@@ -26,8 +26,12 @@ export function getScreen(id: string) {
           .getUserMedia({
             video: {
               mandatory: {
-                chromeMediaSource: "desktop"
-              }
+                chromeMediaSource: "desktop",
+                chromeMediaSourceId: id,
+                maxWidth: 1024,
+                maxHeight: 576
+              },
+              optional: [{ maxFrameRate: 15 }]
             }
           })
           .then((stream: any) => {
